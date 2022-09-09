@@ -8,10 +8,6 @@ services:
     depends_on:
       - db
   db:
-    image: mariadb
-    environment:
-      MARIADB_ROOT_PASSWORD: root_password
+    build: ./mariadb
     ports:
       - "3306:3306"
-    volumes:
-      - ./mariadb:/docker-entrypoint-initdb.d:ro
