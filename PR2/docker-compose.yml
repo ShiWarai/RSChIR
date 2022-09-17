@@ -1,0 +1,15 @@
+version: "2.4"
+
+services:
+  server:
+    container_name: web_services
+    build: ./apache
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+  db:
+    container_name: database
+    build: ./mariadb
+    ports:
+      - "3306:3306"
