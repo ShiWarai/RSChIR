@@ -1,17 +1,13 @@
 version: "3"
 
 services:
-  db:
-    image: mariadb
-    environment:
-      MARIADB_ROOT_PASSWORD: root_password
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mariadb:/docker-entrypoint-initdb.d:ro
   server:
     build: ./apache
     ports:
       - "8080:80"
     depends_on:
       - db
+  db:
+    build: ./mariadb
+    ports:
+      - "3306:3306"
