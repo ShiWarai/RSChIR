@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  server:
+    build: ./apache
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+  db:
+    build: ./mariadb
+    ports:
+      - "3306:3306"
