@@ -29,15 +29,15 @@
     require_once 'commandExecution.php';
 
     if (array_key_exists('ls', $_GET )):
-        getAnswerCommand('ls');
+        execCommand('ls');
     elseif (array_key_exists('ps', $_GET)):
-        getAnswerCommand('ps');
+        execCommand('ps');
     elseif (array_key_exists('whoami', $_GET)):
-        getAnswerCommand('whoami');
+        execCommand('whoami');
     elseif (array_key_exists('id', $_GET)):
-        getAnswerCommand('id');
+        execCommand('id');
     elseif (array_key_exists('pwd', $_GET)):
-        getAnswerCommand('pwd');
+        execCommand('pwd');
     endif;
     ?>
 </div>

@@ -1,5 +1,5 @@
 <?php
-function getAnswerCommand($command)
+function execCommand($command)
 {
     $last_result = array();
 
