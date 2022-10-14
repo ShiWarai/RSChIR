@@ -1,13 +1,18 @@
 version: "3"
 
 services:
-  server:
-    build: ./apache
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/pages:/etc/nginx/html/
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "8080:80"
+    depends_on:
+      - apache
+  apache:
+    build: ./apache
     depends_on:
       - db
   db:
     build: ./mariadb
-    ports:
-      - "3306:3306"
