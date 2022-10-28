@@ -13,7 +13,7 @@
     $mysqli = new mysqli("db", "user", "password", "appDB");
     $result = $mysqli->query("SELECT * FROM purchase");
     foreach ($result as $row){
-        echo "<tr><td>{$row['name']}</td><td>{$row['toy_id']}</td><td>{$row['wholesale_price']} р.</td><td>{$row['count']} р.</td></tr>";
+        echo "<tr><td>{$row['name']}</td><td>{$row['toy_id']}</td><td>{$row['wholesale_price']} р.</td><td>{$row['count']}</td></tr>";
     }
     ?>
 </table>
