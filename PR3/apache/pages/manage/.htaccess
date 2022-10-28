@@ -1,0 +1,5 @@
+<FilesMatch "\.php$">
+    AuthName "Login required"
+    AuthType Basic
+    Require valid-user
+</FilesMatch>

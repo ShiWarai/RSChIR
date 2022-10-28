@@ -1,0 +1,24 @@
+table {
+    border: 1px solid grey;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th {
+    border: 1px solid grey;
+    font-size: 250%;
+}
+
+td {
+    border: 1px solid grey;
+    font-size: 250%;
+}
+
+h1 {
+    text-align: center;	
+}
+
+body {
+    font-size: 30px;
+    text-align: center;
+}
