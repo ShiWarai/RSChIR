@@ -5,7 +5,7 @@ services:
     image: nginx
     volumes:
       - ./nginx/pages:/etc/nginx/html/
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "8080:80"
     depends_on:
