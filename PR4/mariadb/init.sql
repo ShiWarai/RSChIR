@@ -8,7 +8,7 @@ USE appDB;
 SET NAMES UTF8;
 
 CREATE TABLE IF NOT EXISTS toy (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(64) NOT NULL,
     description TEXT,
     price INT NOT NULL,
@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS toy (
     PRIMARY KEY (id)
 );
 
-INSERT INTO toy (id, name, price, count)
-VALUES  (0, 'пистолетик', 1200, 120),
-        (1, 'кукла', 1000, 432),
-        (2, 'игрушечный компьютер', 5400, 32);
+INSERT INTO toy (name, price, count)
+VALUES  ('пистолетик', 1200, 120),
+        ('кукла', 1000, 432),
+        ('игрушечный компьютер', 5400, 32);
 
 CREATE TABLE IF NOT EXISTS purchase (
    id INT NOT NULL AUTO_INCREMENT,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS purchase (
 );
 
 INSERT INTO purchase (name, toy_id, wholesale_price, count)
-VALUES ('закупка №43', 0, 110, 100),
+VALUES ('закупка №43', 1, 110, 100),
        ('закупка №44', 2, 400, 10);
 
 CREATE TABLE IF NOT EXISTS user (

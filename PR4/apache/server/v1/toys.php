@@ -1,9 +1,9 @@
 <?php
 
-use objects\Purchase;
+use objects\Toy;
 
 include_once("config/database.php");
-include_once("repositories/purchaseRepository.php");
+include_once("repositories/toysRepository.php");
 
 error_reporting(E_ERROR | E_PARSE);
 header("Content-Type: application/json; charset=UTF-8");
@@ -11,20 +11,20 @@ $data = json_decode(file_get_contents("php://input"));
 
 global $database;
 $db = $database->get_connection();
-$repository = new PurchaseRepository($db);
+$repository = new ToysRepository($db);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         if (
             !empty($data->name) &&
-            !empty($data->toy_id) &&
-            !empty($data->wholesale_price) &&
+            !empty($data->description) &&
+            !empty($data->price) &&
             !(empty($data->count) && $data->count <> 0)
         ) {
-            $purchase = new Purchase();
-            $purchase->copy_data(-1, $data);
+            $toy = new Toy();
+            $toy->copy_data(-1, $data);
 
-            $result = $repository->create($purchase);
+            $result = $repository->create($toy);
 
             if ($result) {
                 http_response_code(201);
@@ -44,11 +44,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         } else {
             $result = $repository->read($_GET["id"]);
             if ($result != null) {
-                $purchase = new Purchase();
-                $purchase->copy($result);
+                $toy = new Toy();
+                $toy->copy($result);
 
                 http_response_code(200);
-                echo json_encode((array) $purchase);
+                echo json_encode((array) $toy);
             } else {
                 http_response_code(404);
             }
@@ -58,14 +58,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (
             isset($_GET["id"]) &&
             !empty($data->name) &&
-            !empty($data->toy_id) &&
-            !empty($data->wholesale_price) &&
+            !empty($data->description) &&
+            !empty($data->price) &&
             !(empty($data->count) && $data->count <> 0)
         ) {
-            $purchase = new Purchase();
-            $purchase->copy_data($_GET["id"], $data);
+            $toy = new Toy();
+            $toy->copy_data($_GET["id"], $data);
 
-            $result = $repository->update($purchase);
+            $result = $repository->update($toy);
 
             if ($result == 1)
                 http_response_code(200);

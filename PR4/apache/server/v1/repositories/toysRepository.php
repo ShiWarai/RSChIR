@@ -1,24 +1,24 @@
 <?php
-include_once("objects/Purchase.php");
-use objects\Purchase;
+include_once("objects/Toy.php");
+use objects\Toy;
 
-class PurchaseRepository {
+class ToysRepository {
     private ?mysqli $conn;
-    private string $table_name = "purchase";
+    private string $table_name = "toy";
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    function create(Purchase $purchase): bool
+    function create(Toy $toy): bool
     {
-        $query = "INSERT INTO ".$this->table_name."(name, toy_id, wholesale_price, count) VALUE ('".$purchase->name."', '".$purchase->toy_id."', '".$purchase->wholesale_price."', '".$purchase->count."');";
+        $query = "INSERT INTO ".$this->table_name."(name, description, price, count) VALUE ('".$toy->name."', '".$toy->description."', ".$toy->price.", ".$toy->count.");";
 
         return $this->conn->query($query) and $this->conn->commit();
     }
 
     function read(int $id) {
-        $query = "SELECT s.id, s.name, s.toy_id, s.wholesale_price, s.count FROM ".$this->table_name." AS s WHERE s.id = ".$id.";";
+        $query = "SELECT s.id, s.name, s.description, s.price, s.count FROM ".$this->table_name." AS s WHERE s.id = ".$id.";";
 
         return $this->conn->query($query)->fetch_object();
     }
@@ -26,7 +26,7 @@ class PurchaseRepository {
     function read_all(): array
     {
         $query = "
-        SELECT s.id, s.name, s.toy_id, s.wholesale_price, s.count FROM ".$this->table_name." AS s
+        SELECT s.id, s.name, s.description, s.price, s.count FROM ".$this->table_name." AS s
         ORDER BY s.id; 
         ";
 
@@ -35,10 +35,10 @@ class PurchaseRepository {
         if ($stmt != null) {
             $result = array();
             foreach ($stmt as $purch) {
-                $purchase = new Purchase();
-                $purchase->copy((object) $purch);
+                $toys = new Toy();
+                $toys->copy((object) $purch);
 
-                $result[] = (array) $purchase;
+                $result[] = (array) $toys;
             }
             return $result;
         } else {
@@ -46,13 +46,13 @@ class PurchaseRepository {
         }
     }
 
-    function update(Purchase $purchase): int
+    function update(Toy $toy): int
     {
-        if($this->check($purchase->id)) {
+        if($this->check($toy->id)) {
             $query = "
             UPDATE ".$this->table_name." 
-            SET name = '" . $purchase->name . "', toy_id = '" . $purchase->toy_id . "', wholesale_price = '" . $purchase->wholesale_price . "', count = '" . $purchase->count . "'
-            WHERE id = " . $purchase->id . ";";
+            SET name = '" . $toy->name . "', description = '" . $toy->description . "', price = '" . $toy->price . "', count = '" . $toy->count . "'
+            WHERE id = " . $toy->id . ";";
             $this->conn->query($query);
 
             if ($this->conn->affected_rows == 1) {
@@ -64,7 +64,7 @@ class PurchaseRepository {
             return -1;
     }
 
-    function delete(int $id): bool
+    function delete(int $id): int
     {
         $query = "DELETE FROM ".$this->table_name." WHERE id = ".$id.";";
         $this->conn->query($query);
