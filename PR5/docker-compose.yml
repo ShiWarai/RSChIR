@@ -17,6 +17,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./apache/server:/var/www/html/
+      - ./apache/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - db
@@ -31,3 +32,8 @@ services:
       - ./mariadb:/docker-entrypoint-initdb.d:ro
     ports:
       - "3306:3306"
+  nosql_db:
+    image: redis:alpine3.16
+    container_name: pr5_nosql_database
+    ports:
+      - "6379:6379"
