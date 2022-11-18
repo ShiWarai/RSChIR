@@ -22,3 +22,7 @@ body {
     font-size: 30px;
     text-align: center;
 }
+
+input {
+    margin: 16px 0px;
+}
