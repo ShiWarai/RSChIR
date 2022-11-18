@@ -21,8 +21,10 @@ services:
       - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - db
+      - nosql_db
     links:
       - db
+      - nosql_db
   db:
     image: mariadb
     container_name: pr5_database
