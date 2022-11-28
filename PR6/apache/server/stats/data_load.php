@@ -5,17 +5,30 @@ function get_raw_data(): array {
     return json_decode($input);
 }
 
-function get_day_count($data): array
+function get_gender_count($data): array
 {
-    $day_count = array();
+    $gender_count = array();
     foreach ($data as $row) {
-        $weekday = $row->weekday;
-        if(!isset($day_count[$weekday])) {
-            $day_count[$weekday] = 0;
+        $gender = $row->gender;
+        if(!isset($gender_count[$gender])) {
+            $gender_count[$gender] = 0;
         }
-        $day_count[$weekday] += 1;
+        $gender_count[$gender] += 1;
     }
-    return $day_count;
+    return $gender_count;
+}
+
+function get_gender_type_count($data): array
+{
+    $gender_type_count = array();
+    foreach ($data as $row) {
+        $gender = $row->gender;
+        if(!isset($gender_type_count[$gender])) {
+            $gender_type_count[$gender] = 0;
+        }
+        $gender_type_count[$gender] += 1;
+    }
+    return $gender_type_count;
 }
 
 function get_blood_type_count($data): array
@@ -44,30 +57,30 @@ function get_month_count($data): array
     return $count;
 }
 
-function get_day_blood_tuple(): array {
+function get_gender_blood_tuple(): array {
     $data = get_raw_data();
     $blood_array = array();
-    $day_array = array();
+    $gender_array = array();
     $blood_keys = array();
-    $day_keys = array();
+    $gender_keys = array();
     foreach ($data as $row) {
-        if (!in_array($row->weekday, $day_keys)) {
-            $day_keys[] = $row->weekday;
+        if (!in_array($row->gender, $gender_keys)) {
+            $gender_keys[] = $row->gender;
         }
         if (!in_array($row->bloodType, $blood_keys)) {
             $blood_keys[] =$row->bloodType;
         }
     }
-    $day_keys = array_flip($day_keys);
+    $gender_keys = array_flip($gender_keys);
     $blood_keys = array_flip($blood_keys);
     foreach ($data as $row) {
-        $day_array[] = $day_keys[$row->weekday];
+        $gender_array[] = $gender_keys[$row->gender];
         $blood_array[] = $blood_keys[$row->bloodType];
     }
     return array(
-        "day" => $day_array,
+        "gender" => $gender_array,
         "blood" => $blood_array,
-        "day_keys" => array_values($day_keys),
+        "gender_keys" => array_values($gender_keys),
         "blood_keys" => array_values($blood_keys)
     );
 }
@@ -75,8 +88,8 @@ function get_day_blood_tuple(): array {
 function get_labels_and_values($func): array
 {
     $raw_data = get_raw_data();
-    $day_count = $func($raw_data);
-    $labels = array_keys($day_count);
-    $values = array_values($day_count);
+    $gender_count = $func($raw_data);
+    $labels = array_keys($gender_count);
+    $values = array_values($gender_count);
     return array("labels" => $labels, "values" => $values);
 }

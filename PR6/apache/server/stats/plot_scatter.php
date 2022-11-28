@@ -1,9 +1,4 @@
 <?php
-
-/**
- * JPGraph v4.0.3
- */
-
 require_once '/etc/apache2/vendor/autoload.php';
 
 use Amenadiel\JpGraph\Graph;
@@ -13,20 +8,15 @@ require_once 'data_load.php';
 
 function draw_plot_scatter(): void
 {
-    $data = get_day_blood_tuple();
-    $datax = $data["day"];
+    $data = get_gender_blood_tuple();
+    $datax = $data["gender"];
     $datay = $data["blood"];
 
-    $__width = 400;
-    $__height = 300;
-    $graph = new Graph\Graph($__width, $__height);
+    $graph = new Graph\Graph(400, 300);
     $graph->SetScale('linlin');
 
     $graph->img->SetMargin(40, 40, 40, 40);
     $graph->SetShadow();
-
-    $graph->title->Set('Blood and Day');
-    $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
 
     $sp1 = new Plot\ScatterPlot($datay, $datax);

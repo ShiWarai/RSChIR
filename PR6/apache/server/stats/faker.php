@@ -1,7 +1,6 @@
 <?php
-
 require_once '/etc/apache2/vendor/autoload.php';
-require_once 'FakeDataInstance.php';
+require_once 'FakerDataInstance.php';
 
 function generate_data(): void
 {
@@ -11,12 +10,11 @@ function generate_data(): void
     $faker->addProvider(new Faker\Provider\ru_RU\Person($faker));
     $faker->addProvider(new Faker\Provider\ru_RU\Color($faker));
     for ($i = 0; $i < 50; $i++) {
-        $data_row = new FakeDataInstance(
-            $faker->name(),
-            $faker->colorName(),
-            $faker->monthName(),
-            $faker->dayOfWeek(),
-            $faker->emoji(),
+        $data_row = new FakerDataInstance(
+            $faker->firstName(),
+            $faker->lastName(),
+            $faker->date(),
+            $faker->title(),
             $faker->bloodType()
         );
         $data[] = $data_row;

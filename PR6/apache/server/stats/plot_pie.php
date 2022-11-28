@@ -9,11 +9,9 @@ require_once 'data_load.php';
 function draw_plot_pie(): void
 {
     $graph = new Graph\PieGraph(400, 300);
-    $graph->title->Set("Day choice");
-    $graph->title->SetFont(FF_FONT1, FS_BOLD);
     $graph->SetBox(true);
 
-    $labels_and_values = get_labels_and_values('get_day_count');
+    $labels_and_values = get_labels_and_values('get_gender_count');
     $labels = $labels_and_values["labels"];
     $values = $labels_and_values["values"];
 

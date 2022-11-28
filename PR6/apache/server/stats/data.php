@@ -23,15 +23,14 @@ draw_plot_pie();
 draw_plot_bar();
 draw_plot_scatter();
 ?>
-<h1>Данные фикстур:</h1>
+<h1>Данные о покупателях:</h1>
 <table class="table" style="font-size: 30%">
     <tr>
-        <th>Name</th>
-        <th>Color</th>
-        <th>Month</th>
-        <th>Emoji</th>
-        <th>Blood Type</th>
-        <th>Weekday</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Дата покупки</th>
+        <th>Пол</th>
+        <th>Тип крови</th>
     </tr>
     <?php
     $data = get_raw_data();
@@ -39,11 +38,10 @@ draw_plot_scatter();
     foreach ($data as $data_row) {
         echo "<tr>";
         echo "<td>".$data_row->name."</td>";
-        echo "<td>".$data_row->color."</td>";
-        echo "<td>".$data_row->month."</td>";
-        echo "<td>".$data_row->emoji."</td>";
+        echo "<td>".$data_row->surname."</td>";
+        echo "<td>".$data_row->date."</td>";
+        echo "<td>".$data_row->gender."</td>";
         echo "<td>".$data_row->bloodType."</td>";
-        echo "<td>".$data_row->weekday."</td>";
         echo "</tr>";
     }
     ?>
