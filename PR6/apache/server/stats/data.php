@@ -51,7 +51,7 @@ draw_plot_scatter();
 <?php
 require_once "watermark.php";
 
-$images = array("images/plot_pie.png", "images/plot_bar.png", "images/plot_scatter.png");
+$images = array("images/plot_bar.png", "images/plot_pie.png", "images/plot_scatter.png");
 
 foreach ($images as $image) {
     add_watermark($image);
