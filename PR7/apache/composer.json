@@ -1,0 +1,27 @@
+{
+  "name": "rtumirea/server",
+  "description": "Сервер для практических работ",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "ShiWarai",
+      "email": "shi.warai@yandex.ru"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2-faker": "~2.0.0",
+    "amenadiel/jpgraph": "^4.0.0"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  }
+}
