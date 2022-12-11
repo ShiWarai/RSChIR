@@ -56,7 +56,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'PUT':
         if (
-            isset($_GET["id"]) &&
+            isset($_GET
+                ["id"]) &&
             !empty($data->name) &&
             !empty($data->description) &&
             !empty($data->price) &&
