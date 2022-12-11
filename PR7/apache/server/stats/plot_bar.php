@@ -1,5 +1,5 @@
 <?php
-require_once '/etc/apache2/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Amenadiel\JpGraph\Graph;
 use Amenadiel\JpGraph\Plot;
@@ -15,13 +15,13 @@ function draw_plot_bar(): void
     $labels = $labels_and_values["labels"];
     $values = $labels_and_values["values"];
 
-    $databary = $values;
+    $dataarray = $values;
     $graph->SetScale('textlin');
     $graph->xaxis->SetTickLabels($labels);
     $graph->title->Set($_GET['property']);
     $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
-    $b1 = new Plot\BarPlot($databary);
+    $b1 = new Plot\BarPlot($dataarray);
     $b1->SetLegend($_GET['property']);
     $graph->Add($b1);
 

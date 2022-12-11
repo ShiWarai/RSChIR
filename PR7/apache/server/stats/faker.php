@@ -1,5 +1,5 @@
 <?php
-require_once '/etc/apache2/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once 'FakerDataInstance.php';
 
 function generate_data(): void

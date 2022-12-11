@@ -12,7 +12,8 @@ RUN docker-php-ext-install mysqli && \
     apt-get install -y git && \
     apt-get install -y libpng-dev && \
     apt-get install -y zip unzip && \
-    docker-php-ext-install gd
+    docker-php-ext-install gd && \
+    a2enmod rewrite
 
 WORKDIR /etc/apache2
 COPY composer.json .
