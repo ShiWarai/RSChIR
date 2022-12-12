@@ -1,6 +1,5 @@
 <?php
 
-namespace objects;
 class Purchase
 {
     public int $id;

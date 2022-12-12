@@ -1,6 +1,5 @@
 <?php
 
-namespace objects;
 class Toy
 {
     public int $id;

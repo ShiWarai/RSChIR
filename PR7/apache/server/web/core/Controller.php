@@ -1,5 +1,4 @@
 <?php
-include_once "../view/UnauthorizedView.php";
 include_once "web/model/ShopDatabase.php";
 
 class Controller {
