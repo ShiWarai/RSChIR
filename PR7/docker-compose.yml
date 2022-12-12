@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx
+    container_name: pr7_nginx
+    volumes:
+      - ./nginx/pages:/etc/nginx/html/
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - apache
+    links:
+      - apache
+  apache:
+    build: ./apache
+    container_name: pr7_apache
+    working_dir: /var/www/html
+    volumes:
+      - ./apache/server:/var/www/html/
+      - ./apache/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - db
+      - nosql_db
+    links:
+      - db
+      - nosql_db
+  db:
+    image: mariadb
+    container_name: pr7_database
+    environment:
+      MARIADB_ROOT_PASSWORD: root_password
+    volumes:
+      - ./mariadb:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "3306:3306"
+  nosql_db:
+    image: redis:alpine3.16
+    container_name: pr7_nosql_database
+    ports:
+      - "6379:6379"
