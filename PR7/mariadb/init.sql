@@ -43,4 +43,4 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 INSERT INTO user (login, password)
-VALUES ('admin', '{SHA}0DPiKuNIrrVmD8IUCuw1hQxNqZc=');
+VALUES ('admin', '$2y$10$sAsCJRshbMIFBThogGCtCuGeZlZVduD3H.kxyXKVPPdhACNJzbzT6');

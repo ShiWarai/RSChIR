@@ -1,5 +1,5 @@
 <?php
-include_once "web/model/ShopDatabase.php";
+require_once "web/model/ShopDatabase.php";
 
 class Controller {
 

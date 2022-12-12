@@ -1,7 +1,7 @@
 <?php
-include_once "vendor/autoload.php";
-include_once "web/model/FakerDataModel.php";
-include_once "web/model/PlotModel.php";
+require_once '/etc/apache2/vendor/autoload.php';
+require_once "web/model/FakerDataModel.php";
+require_once "web/model/PlotModel.php";
 
 class StatisticController extends Controller {
     private array $fakerData;

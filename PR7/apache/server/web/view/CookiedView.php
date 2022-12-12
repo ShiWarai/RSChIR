@@ -5,7 +5,7 @@
     <link id="theme-link" rel="stylesheet" href="<?php echo $data['theme'] ?>" type="text/css"/>
 </head>
 <?php
-    include_once $data['lang'];
+    require_once $data['lang'];
 ?>
 <script src="/cookies.js"></script>
 </html>

@@ -1,6 +1,6 @@
 <?php
-include_once "Purchase.php";
-include_once "Toy.php";
+require_once "Purchase.php";
+require_once "Toy.php";
 
 class ShopDatabase
 {
@@ -10,7 +10,7 @@ class ShopDatabase
 
     public function createConnection(): ?mysqli
     {
-        $this->conn = new mysqli("db", "user", "password", "appDB");
+        $this->conn = new mysqli("db", "root", "root_password", "appDB");
         $this->conn->query("set names utf8");
         return $this->conn;
     }

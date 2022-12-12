@@ -1,5 +1,5 @@
 <?php
-include_once "vendor/autoload.php";
+require_once '/etc/apache2/vendor/autoload.php';
 
 use Amenadiel\JpGraph\Graph;
 use Amenadiel\JpGraph\Plot;

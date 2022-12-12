@@ -1,7 +1,4 @@
 <?php
-include_once "vendor/autoload.php";
-include_once "web/model/FakerDataModel.php";
-include_once "web/model/PlotModel.php";
 
 class CookiedController extends Controller {
 
