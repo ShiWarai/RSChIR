@@ -4,7 +4,7 @@ include_once "vendor/autoload.php";
 use Amenadiel\JpGraph\Graph;
 use Amenadiel\JpGraph\Plot;
 
-class StatisticModel extends Model
+class PlotModel extends Model
 {
     private array $gender_type;
     private array $gender_count;
@@ -20,7 +20,7 @@ class StatisticModel extends Model
         $this->gender_and_blood = $data['gender_and_blood'];
     }
 
-    function draw_plot_bar(): string
+    function draw_plot_bar(string $plot_name): string
     {
         $graph = new Graph\Graph(400, 300, 'auto');
         $graph->SetShadow();
@@ -39,12 +39,13 @@ class StatisticModel extends Model
         $b1->SetLegend($_GET['property']);
         $graph->Add($b1);
 
-        $graph->Stroke($this->IMAGES_PATH."plot_bar.png");
+        $graph->Stroke($this->IMAGES_PATH.$plot_name.".png");
+        $this->add_watermark($this->IMAGES_PATH.$plot_name.".png");
 
-        return "/static/images/plot_bar.png";
+        return "/static/images/".$plot_name.".png";
     }
 
-    function draw_plot_pie(): string
+    function draw_plot_pie(string $plot_name): string
     {
         $graph = new Graph\PieGraph(400, 300);
         $graph->SetBox(true);
@@ -60,12 +61,13 @@ class StatisticModel extends Model
 
         $graph->Add($p1);
 
-        $graph->Stroke($this->IMAGES_PATH."plot_pie.png");
+        $graph->Stroke($this->IMAGES_PATH.$plot_name.".png");
+        $this->add_watermark($this->IMAGES_PATH.$plot_name.".png");
 
-        return "/static/images/plot_pie.png";
+        return "/static/images/".$plot_name.".png";
     }
 
-    function draw_plot_scatter(): string
+    function draw_plot_scatter(string $plot_name): string
     {
         $data = $this->gender_and_blood;
         $datax = $data["gender"];
@@ -84,8 +86,41 @@ class StatisticModel extends Model
         $sp1->mark->SetWidth(8);
 
         $graph->Add($sp1);
-        $graph->Stroke($this->IMAGES_PATH."plot_scatter.png");
 
-        return "/static/images/plot_scatter.png";
+        $graph->Stroke($this->IMAGES_PATH.$plot_name.".png");
+        $this->add_watermark($this->IMAGES_PATH.$plot_name.".png");
+
+        return "/static/images/".$plot_name.".png";
+    }
+
+    private function add_watermark($image_name) {
+        $watermark = $this->IMAGES_PATH."watermark.png";
+        list($width, $height) = getimagesize($watermark);
+
+        print_r($width, $height);
+
+        $image = imagecreatefromstring(file_get_contents($image_name));
+        $watermark = imagecreatefromstring(file_get_contents($watermark));
+
+        imagealphablending($watermark, false);
+        imagesavealpha($watermark, true);
+        $alpha = round(64); // convert to [0-127]
+
+        for ($x = 0; $x < $width; $x++) {
+            for ($y = 0; $y < $height; $y++) {
+                $rgb = imagecolorat($watermark, $x, $y);
+
+                $r = ($rgb >> 16) & 0xff;
+                $g = ($rgb >> 8) & 0xff;
+                $b = $rgb & 0xff;
+
+                $col = imagecolorallocatealpha($watermark, $r, $g, $b, $alpha);
+
+                imagesetpixel($watermark, $x, $y, $col);
+            }
+        }
+
+        imagecopy($image, $watermark, 64, 64, 0, 0, $width, $height);
+        imagepng($image, $image_name);
     }
 }

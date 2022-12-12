@@ -1,11 +1,11 @@
 <?php
 include_once "vendor/autoload.php";
 include_once "web/model/FakerDataModel.php";
-include_once "web/model/StatisticModel.php";
+include_once "web/model/PlotModel.php";
 
 class StatisticController extends Controller {
     private array $fakerData;
-    private StatisticModel $plots;
+    private PlotModel $plots;
 
     function __construct()
     {
@@ -25,13 +25,13 @@ class StatisticController extends Controller {
             $this->fakerData[] = $data_row;
         }
         $jsonData = json_encode($this->fakerData);
-        file_put_contents('results.json', $jsonData);
+        file_put_contents($_SERVER['DOCUMENT_ROOT']."/stats/results.json", $jsonData);
 
         $buffer = array();
         $buffer['gender_type'] = $this->get_labels_and_values("get_gender_type_count");
         $buffer['gender_count'] = $this->get_labels_and_values("get_gender_count");
         $buffer['gender_and_blood'] = $this->get_gender_blood_tuple();
-        $this->plots = new StatisticModel($buffer);
+        $this->plots = new PlotModel($buffer);
     }
 
     function index() {
@@ -40,16 +40,16 @@ class StatisticController extends Controller {
         $data['table'] = $this->get_raw_data();
 
         $images = array();
-        $images[] = $this->plots->draw_plot_bar();
-        $images[] = $this->plots->draw_plot_pie();
-        $images[] = $this->plots->draw_plot_scatter();
+        $images[] = $this->plots->draw_plot_bar("plot_bar");
+        $images[] = $this->plots->draw_plot_pie("plot_pie");
+        $images[] = $this->plots->draw_plot_scatter("plot_scatter");
         $data['images'] = $images;
 
         $this->view->generate("StatisticView.php", $data);
     }
 
     function get_raw_data(): array {
-        $input = file_get_contents('results.json');
+        $input = file_get_contents($_SERVER['DOCUMENT_ROOT']."/stats/results.json");
         return json_decode($input);
     }
 

@@ -14,7 +14,6 @@ class Route
 
         if ( !empty($routes[1]) )
         {
-
             $controller_name = ucfirst($routes[1]);
         }
 
