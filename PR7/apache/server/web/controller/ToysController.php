@@ -3,13 +3,6 @@ require_once "web/model/ShopDatabase.php";
 
 class ToysController extends Controller
 {
-    private ShopDatabase $db;
-
-    function __construct()
-    {
-        parent::__construct();
-        $this->db = new ShopDatabase();
-    }
 
     function index()
     {

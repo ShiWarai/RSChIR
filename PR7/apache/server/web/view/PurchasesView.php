@@ -1,7 +1,3 @@
-<?php
-require_once "../session.php";
-?>
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -13,9 +9,7 @@ require_once "../session.php";
 <table>
     <tr><th>Имя</th><th>ID товара</th><th>Оптовая цена</th><th>Кол-во</th></tr>
     <?php
-    $mysqli = new mysqli("db", "user", "password", "appDB");
-    $result = $mysqli->query("SELECT * FROM purchase");
-    foreach ($result as $row){
+    foreach ($data['purchases'] as $row){
         echo "<tr><td>{$row['name']}</td><td>{$row['toy_id']}</td><td>{$row['wholesale_price']} р.</td><td>{$row['count']}</td></tr>";
     }
     ?>
